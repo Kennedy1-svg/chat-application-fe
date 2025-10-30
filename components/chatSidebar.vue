@@ -35,14 +35,14 @@
     </div>
 
     <!-- 💬 Chat List -->
-    <ul class="flex-1 overflow-y-auto divide-y divide-gray-100">
+    <ul class="flex-1 overflow-y-auto divide-y divide-gray-100 w-full">
       <li
         v-for="chat in chats"
         :key="chat.id"
-        @click="selectChat(chat)"
+        @click="$router.push(`/chat/${chat.id}`)"
         class="p-4 flex items-center gap-3 hover:bg-gray-50 cursor-pointer transition-colors"
       >
-        <Nuxt-Link  :to="`/chat/${chat.id}`">
+        <Nuxt-Link  :to="`/chat/${chat.id}`" class="flex gap-x-4">
 
       <div
           class="w-10 h-10 rounded-full flex items-center justify-center font-semibold text-white bg-[#8BABD8]"
@@ -50,11 +50,6 @@
         >
           {{ getInitials(chat.name) }}
         </div>
-        <!-- <img
-          :src="chat.avatar"
-          alt="User Avatar"
-          class="w-10 h-10 rounded-full object-cover"
-        /> -->
         <div class="flex-1 min-w-0">
           <p class="font-medium text-gray-800 truncate">{{ chat.name }}</p>
           <p class="text-sm text-gray-500 truncate">{{ chat.lastMessage }}</p>

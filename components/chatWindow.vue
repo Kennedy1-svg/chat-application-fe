@@ -1,6 +1,9 @@
 <template>
   <div class="flex flex-col h-full">
     <div class="p-4 border-b bg-white shadow-sm flex items-center gap-x-4">
+         <button @click="$router.push('/chat')" class="md:hidden mr-3 text-gray-600">
+         Back
+      </button>
         <div
           class="w-10 h-10 rounded-full flex items-center justify-center font-semibold text-white bg-[#8BABD8]"
           
