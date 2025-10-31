@@ -33,9 +33,32 @@
         </svg>
       </div>
     </div>
+      <!-- {{ users }} -->
+      <ul v-if="chats?.length== 0" class="flex-1 overflow-y-auto divide-y divide-gray-100 w-full">
+      <li
+        v-for="chat in users"
+        :key="chat.id"
+        @click="$router.push(`/chat/${chat._id}`)"
+        class="p-4 flex items-center gap-3 hover:bg-gray-50 cursor-pointer transition-colors"
+      >
+        <Nuxt-Link  :to="`/chat/${chat._id}`" class="flex gap-x-4">
 
+      <div
+          class="w-10 h-10 rounded-full flex items-center justify-center font-semibold text-white bg-[#8BABD8]"
+          
+        >
+          {{ getInitials(chat.name) }}
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="font-medium text-gray-800 truncate">{{ chat.name }}</p>
+          <p class="text-sm text-gray-500 truncate">{{ chat.lastMessage }}</p>
+        </div>
+      </Nuxt-Link>
+
+      </li>
+    </ul>
     <!-- 💬 Chat List -->
-    <ul class="flex-1 overflow-y-auto divide-y divide-gray-100 w-full">
+    <ul v-else  class="flex-1 overflow-y-auto divide-y divide-gray-100 w-full">
       <li
         v-for="chat in chats"
         :key="chat.id"
@@ -62,11 +85,14 @@
 </template>
 
 <script>
-import { chats } from '../chat.js'
+// import { chats } from '../chat.js'
 export default {
   data() {
     return {
-        chats: chats
+        chats: null,
+        users: [],      // all users from backend
+        loading: false,
+        error: null,
     }
   },
   methods: {
@@ -84,6 +110,91 @@ export default {
         ? parts[0][0] + parts[1][0]
         : parts[0][0]
     },
-  }
+     async getMyChats() {
+      try {
+        this.isLoading = true
+        this.error = null
+
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+        if (!token) {
+          throw new Error('No authentication token found')
+        }
+
+        // Fetch user's chats
+        const response = await fetch('http://localhost:4000/api/chats', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch chats: ${response.statusText}`)
+        }
+
+        const data = await response.json()
+
+        // Replace `chats` with actual data from API
+        this.chats = Array.isArray(data) ? data : data.chats || []
+      } catch (err) {
+        console.error(err)
+        this.error = err.message
+      } finally {
+        this.isLoading = false
+      }
+    },
+     async fetchAllUsers() {
+      this.loading = true
+      this.error = null
+
+      try {
+        const token = localStorage.getItem('token')
+        if (!token) {
+          this.error = 'No token found — please log in first'
+          this.loading = false
+          return
+        }
+
+        const response = await fetch('http://localhost:4000/api/users/all-users', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        })
+
+        if (!response.ok) {
+          const errMsg = await response.text()
+          throw new Error(`HTTP error ${response.status}: ${errMsg}`)
+        }
+
+        const data = await response.json()
+        this.users = data
+      } catch (err) {
+        console.error('Error fetching users:', err)
+        this.error = 'Unable to fetch users'
+      } finally {
+        this.loading = false
+      }
+    },
+  },
+
+  mounted() {
+    this.fetchAllUsers()
+    this.getMyChats()
+  },
+
+  // mounted() {
+    
+  //   let user = null
+
+  //   // Safely access localStorage only in browser
+  //   if (process.client) {
+  //     user = localStorage.getItem('user')
+  //   }
+
+  //   console.log('User:', user)
+  // },
 }
 </script>

@@ -26,10 +26,50 @@ export default {
     return { name: '', email: '', phone: '', password: '' }
   },
   methods: {
-    handleSignup() {
-      console.log({ name: this.name, email: this.email, phone: this.phone })
-      this.$router.push(`/chat/1`)
-    }
+    async handleSignup() {
+      this.isLoading = true
+      this.errorMessage = ''
+
+      try {
+        const response = await fetch('http://localhost:4000/api/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: this.name,
+            email: this.email,
+            phone: this.phone,
+          }),
+        })
+
+        const data = await response.json()
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Signup failed')
+        }
+
+      //    if (window.socket && window.socket.connected === false) {
+      //   window.socket.auth = { token: data.token };
+      //   window.socket.connect();
+      // }
+
+        // Store JWT token and user info
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('user', JSON.stringify(data.user))
+
+        // Redirect to chat page (you can use user._id or chatId if needed)
+        this.$router.push('/chat')
+      } catch (error) {
+        this.errorMessage = error.message
+        console.error('Signup error:', error)
+      } finally {
+        this.isLoading = false
+      }
+    },
+    // handleSignup() {
+    //   console.log({ name: this.name, email: this.email, phone: this.phone })
+
+    //   this.$router.push(`/chat/1`)
+    // }
   }
 }
 </script>

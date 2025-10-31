@@ -19,7 +19,7 @@ export default {
   css: [],
 
   // Plugins
-  plugins: [],
+  plugins: ['~/plugins/socket.js'],
 
   // Auto import components
   components: true,

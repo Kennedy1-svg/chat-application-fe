@@ -5,7 +5,6 @@
       <form @submit.prevent="handleLogin" class="space-y-4">
         <input v-model="email" type="email" placeholder="Email" class="input" required />
         <input v-model="phone" type="tel" placeholder="Phone Number" class="input" required />
-        <input v-model="password" type="password" placeholder="Password" class="input" required />
         <!-- <NuxtLink> -->
         <button type="submit" class="w-full py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">Login</button>
 

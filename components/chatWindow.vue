@@ -40,12 +40,6 @@ export default {
   components: { ChatMessage, ChatInput },
   data() {
     return {
-    //   messages: [
-    //     { text: 'Hey!', isMine: true },
-    //     { text: 'Hi! How are you?', isMine: false }
-    //   ]
-
-    // messages: messages
     }
   },
   methods: {
@@ -59,7 +53,26 @@ export default {
         : parts[0][0]
     },
   },
-  props: { messages: Array, isMine: Boolean, name: String }
+  // props: { messages: Array, isMine: Boolean, name: String }
+
+  props: {
+  messages: {
+    type: Array,
+    required: false,
+    default: () => [] // fallback to empty array
+  },
+  isMine: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
+  name: {
+    type: String,
+    required: false,
+    default: ''
+  }
+}
+
 
 }
 </script>

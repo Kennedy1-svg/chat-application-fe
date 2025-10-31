@@ -9,5 +9,7 @@ import ChatSidebar from '../../components/chatSidebar.vue'
 export default {
   layout: 'chat',
   components: { ChatSidebar },
+ 
+  
 }
 </script>
