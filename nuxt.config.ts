@@ -15,6 +15,10 @@ export default {
     ]
   },
 
+  publicRuntimeConfig: {
+    apiBaseUrl: process.env.VUE_APP_API_URL
+  },
+
   // Global CSS
   css: [],
 

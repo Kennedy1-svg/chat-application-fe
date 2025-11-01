@@ -9,7 +9,7 @@ export default ({ store }, inject) => {
   }
 
   // Connect to your backend
-  const socket = io(process.env.VUE_APP_API_URL || 'http://localhost:4000', {
+  const socket = io(process.env.VUE_APP_API_URL || 'https://chat-application-be-z4e9.onrender.com', {
    auth: token ? { token } : undefined,
     autoConnect: !!token,
     transports: ['websocket'],
@@ -18,11 +18,17 @@ export default ({ store }, inject) => {
     reconnectionDelay: 1000,
   })
 
-  // Basic lifecycle events
-//   socket.on('connect', () => console.log('✅ Socket connected:', socket.id))
-//   socket.on('disconnect', (reason) => console.log('❌ Socket disconnected:', reason))
-//   socket.on('connect_error', (err) => console.error('⚠️ Socket connection error:', err.message))
+//   Basic lifecycle events
+  socket.on('connect', () => console.log('✅ Socket connected:', socket.id))
+  socket.on('disconnect', (reason) => console.log('❌ Socket disconnected:', reason))
+  socket.on('connect_error', (err) => console.error('⚠️ Socket connection error:', err.message))
+
+  // Assuming you have 'io' (the Socket.IO server instance) and 'socket' 
+// (the current client's connection) in scope.
 
   // Inject to use in components as this.$socket
   inject('socket', socket)
+
+
+// export default socket
 }

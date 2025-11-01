@@ -19,6 +19,7 @@ export default {
 
   async mounted() {
     await this.fetchChatHistory()
+    await this.getUserDetailsById(this.getUserId())
     await this.getUserDetailsById(this.$route.params.id)
   },
 

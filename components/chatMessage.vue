@@ -12,12 +12,17 @@
       ]"
     >
       {{ text }}
-      <p class="text-xs text-right mt-2">2:52pm</p>
+      <p class="text-xs text-right mt-2">{{ time }}</p>
     </div>
   </div>
 </template>
 <script>
 export default {
-  props: { text: String, isMine: Boolean }
+  props: { text: String, isMine: Boolean },
+  data() {
+    return {
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    }
+  }
 }
 </script>
