@@ -39,7 +39,7 @@ export const actions = {
       commit('SET_LOADING', true)
       console.log('this is me', process.env.VUE_APP_API_URL)
       const token = localStorage.getItem('token')
-      const res = await fetch('https://chat-application-be-z4e9.onrender.com/api/chats/chatlist', {
+      const res = await fetch('http://localhost:4000/api/chats/chatlist', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -60,7 +60,7 @@ export const actions = {
     commit('SET_LOADING', true)
 
     const token = localStorage.getItem('token')
-    let url = 'https://chat-application-be-z4e9.onrender.com/api/users/all-users/'
+    let url = 'http://localhost:4000/api/users/all-users/'
 
 
     if (search && search.trim()) {

@@ -30,24 +30,34 @@ This project allows users to send and receive messages instantly, see who’s on
 | **JWT (localStorage)** | Authentication handling |
 
 ---
+## 🛠️ RUN INSTRUCTIONS
 
-## 📂 Project Structure
+# npm
+npm install
 
-chat-app-fe/
-├── components/
-│ ├── ChatMessage.vue
-│ ├── ChatInput.vue
-│ └── ChatSidebar.vue
-├── pages/
-│ ├── chat/
-│ │ └── _id.vue
-│ └── index.vue
-├── store/
-│ └── index.js
-├── plugins/
-│ └── socket.client.js
-├── nuxt.config.js
-├── tailwind.config.js
-├── package.json
-└── README.md
+# OR using pnpm
+pnpm install
+
+# OR using yarn
+yarn install
+
+# OR using bun
+bun install
+
+---
+
+## 🛠️ DEVELOPMENT SERVER
+
+# npm
+npm run dev
+
+# pnpm
+pnpm dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
+
 

@@ -9,7 +9,7 @@ export default ({ store }, inject) => {
   }
 
   // Connect to your backend
-  const socket = io(process.env.VUE_APP_API_URL || 'https://chat-application-be-z4e9.onrender.com', {
+  const socket = io(process.env.VUE_APP_API_URL || 'http://localhost:4000', {
    auth: token ? { token } : undefined,
     autoConnect: !!token,
     transports: ['websocket'],
