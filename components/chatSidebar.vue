@@ -110,7 +110,7 @@ export default {
     // }
 
     // const token = localStorage.getItem('token')
-    // const res = await fetch(`http://localhost:4000/api/users/all-users?search=${query}`, {
+    // const res = await fetch(`https://chat-application-be-z4e9.onrender.com/api/users/all-users?search=${query}`, {
     //   headers: { 'Authorization': `Bearer ${token}` }
     // })
     // const data = await res.json()

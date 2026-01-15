@@ -34,7 +34,7 @@ export default {
         }
 
         const otherUserId = this.$route.params.id
-        const res = await fetch(`http://localhost:4000/api/chats/history/${otherUserId}`, {
+        const res = await fetch(`https://chat-application-be-z4e9.onrender.com/api/chats/history/${otherUserId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -71,7 +71,7 @@ export default {
         const token = localStorage.getItem('token')
         if (!token) throw new Error('No authentication token found')
 
-        const res = await fetch(`http://localhost:4000/api/users/${userId}`, {
+        const res = await fetch(`https://chat-application-be-z4e9.onrender.com/api/users/${userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
